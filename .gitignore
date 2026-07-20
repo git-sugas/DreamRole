@@ -1,0 +1,23 @@
+# 运行时用户数据
+data/
+
+# 打包相关
+ai-roleplay.spec
+build.bat
+build_nuitka.bat
+build_nuitka/
+
+# 项目介绍（不提交）
+项目介绍.md
+功能介绍.txt
+read.md
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# 杂项残留
+nul
