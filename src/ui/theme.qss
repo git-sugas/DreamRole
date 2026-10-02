@@ -1,0 +1,892 @@
+/* ===== DreamRole 暗色主题 ===== */
+
+* {
+    font-family: "Microsoft YaHei", "Segoe UI", "PingFang SC", sans-serif;
+    font-size: 14px;
+}
+
+QWidget {
+    background-color: #1a1b26;
+    color: #c0caf5;
+}
+
+/* ===== 通用按钮 ===== */
+QPushButton {
+    background-color: #2a2b3d;
+    color: #c0caf5;
+    border: 1px solid #3b3d52;
+    border-radius: 6px;
+    padding: 6px 16px;
+    min-height: 20px;
+}
+QPushButton:hover {
+    background-color: #3b3d52;
+    border-color: #7aa2f7;
+}
+QPushButton:pressed {
+    background-color: #414868;
+}
+QPushButton:disabled {
+    color: #565f89;
+    background-color: #242533;
+}
+QPushButton#primaryBtn {
+    background-color: #7aa2f7;
+    color: #1a1b26;
+    border: none;
+    font-weight: bold;
+}
+QPushButton#primaryBtn:hover {
+    background-color: #89b4fa;
+}
+QPushButton#primaryBtn:disabled {
+    background-color: #3b3d52;
+    color: #565f89;
+}
+QPushButton#dangerBtn {
+    background-color: #f7768e;
+    color: #1a1b26;
+    border: none;
+}
+QPushButton#dangerBtn:hover {
+    background-color: #ff8e9d;
+}
+
+/* ===== 输入框 ===== */
+/* 单行控件（QLineEdit/QComboBox/QSpinBox 等）设 min-height 钉一行高；
+   QTextEdit/QPlainTextEdit 是多行编辑框，不在此条设 min-height——否则 QSS 的
+   min-height 会覆盖代码的 setFixedHeight/setMinimumHeight，把多行框压成一行
+   （实测加载本条后 setFixedHeight(96) 的框塌到 40px 一行高）。多行框高度由
+   代码按需控制，下方单独给它背景/边框等样式。 */
+QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox {
+    background-color: #242533;
+    color: #c0caf5;
+    border: 1px solid #3b3d52;
+    border-radius: 6px;
+    padding: 4px 10px;
+    min-height: 22px;
+    selection-background-color: #7aa2f7;
+    selection-color: #1a1b26;
+}
+/* 多行编辑框：复用同样背景/边框，但不设 min-height（高度交由代码控制） */
+QTextEdit, QPlainTextEdit {
+    background-color: #242533;
+    color: #c0caf5;
+    border: 1px solid #3b3d52;
+    border-radius: 6px;
+    padding: 6px 8px;
+    selection-background-color: #7aa2f7;
+    selection-color: #1a1b26;
+}
+QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus, QComboBox:focus {
+    border-color: #7aa2f7;
+}
+/* 数值微调框：收窄横向 padding，避免数值被内置上下按钮 sub-control 遮挡重叠 */
+QSpinBox, QDoubleSpinBox {
+    padding: 6px 4px;
+}
+QSpinBox::up-button, QDoubleSpinBox::up-button,
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    width: 18px;
+}
+QComboBox::drop-down {
+    /* 可点击的下拉按钮区域：给可见背景 + 左分隔线，让用户明确知道点这里展开。
+       PySide6 可编辑 QComboBox 在自定义 QSS 下默认不绘制 down-arrow 图标，
+       仅设 border:none+width 会让该区域与输入框融为一体（用户反馈"没箭头"）。
+       显式给背景 + 左分隔线后，右侧会出现一块深色按钮区，点击可展开下拉。
+       （Qt QSS 不支持内联 SVG/CSS 三角形画箭头，故不画箭头图标，
+       靠背景色块 + placeholder 文案提示用户点右侧展开。） */
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 24px;
+    border-left: 1px solid #3b3d52;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background: #2a2b3d;
+}
+QComboBox::drop-down:hover {
+    background: #3b3d52;
+}
+QComboBox::drop-down:disabled {
+    background: #1f2030;
+}
+QComboBox QAbstractItemView {
+    background-color: #242533;
+    border: 1px solid #3b3d52;
+    selection-background-color: #7aa2f7;
+    selection-color: #1a1b26;
+    outline: 0;
+}
+
+/* ===== 滚动条 ===== */
+QScrollBar:vertical {
+    background: #1a1b26;
+    width: 8px;
+    border: none;
+}
+QScrollBar::handle:vertical {
+    background: #3b3d52;
+    border-radius: 4px;
+    min-height: 30px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #7aa2f7;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+}
+QScrollBar:horizontal {
+    background: #1a1b26;
+    height: 8px;
+    border: none;
+}
+QScrollBar::handle:horizontal {
+    background: #3b3d52;
+    border-radius: 4px;
+    min-width: 30px;
+}
+QScrollBar::handle:horizontal:hover {
+    background: #7aa2f7;
+}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0;
+}
+
+/* ===== 列表 ===== */
+QListWidget, QTreeWidget {
+    background-color: #1a1b26;
+    border: 1px solid #2a2b3d;
+    border-radius: 6px;
+    outline: none;
+}
+QListWidget::item, QTreeWidget::item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #242533;
+    border-radius: 0;
+}
+QListWidget::item:hover, QTreeWidget::item:hover {
+    background-color: #242533;
+}
+QListWidget::item:selected, QTreeWidget::item:selected {
+    background-color: #2a2b3d;
+    color: #7aa2f7;
+}
+
+/* ===== 分组框 ===== */
+QGroupBox {
+    border: 1px solid #3b3d52;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    font-weight: bold;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 12px;
+    padding: 0 6px;
+    color: #7aa2f7;
+}
+
+/* ===== 标签 ===== */
+QLabel#titleLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: #7aa2f7;
+}
+QLabel#hintLabel {
+    color: #565f89;
+    font-size: 12px;
+}
+QLabel#charNameLabel {
+    font-weight: bold;
+    color: #c9a86a;
+}
+
+/* ===== 聊天气泡 ===== */
+/* [2026-10-01 用户拍板] 暗金描边（方案一）：暗金细边 + 旁白/AI 左金线、玩家右金线，
+ * 聊天页与世界模拟统一（主题级改 MessageBubble，聊天主链代码零改动） */
+QFrame#userBubble {
+    background-color: #1b1e2b;
+    border-radius: 8px;
+    border: 1px solid #57482a;
+    border-right: 3px solid #c9a86a;
+}
+QFrame#aiBubble {
+    background-color: #1e1b14;
+    border-radius: 8px;
+    border: 1px solid #57482a;
+    border-left: 3px solid #c9a86a;
+}
+QFrame#summaryBubble {
+    background-color: #23201a;
+    border-radius: 8px;
+    border: 1px dashed #57482a;
+}
+QFrame#collapsedBlock {
+    background-color: #201d16;
+    border-radius: 6px;
+    border: 1px solid #3f3722;
+}
+
+/* ===== 头像 ===== */
+QLabel#avatarLabel {
+    border-radius: 24px;
+    border: 2px solid #3b3d52;
+}
+QPushButton#avatarBtn {
+    border-radius: 28px;
+    border: 2px solid transparent;
+    padding: 0;
+    min-width: 56px;
+    max-width: 56px;
+    min-height: 56px;
+    max-height: 56px;
+}
+QPushButton#avatarBtn:hover {
+    border-color: #7aa2f7;
+}
+QPushButton#avatarBtn[selected="true"] {
+    /* [修 2026-10-02 用户指示·描边换色] 选中态紫->暗金亮金（与宫格光圈同源） */
+    border-color: #e0c48f;
+}
+
+/* ===== 头像宫格选择单元（新建会话选角色/用户）===== */
+QWidget#avatarGridCell {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+QWidget#avatarGridCell:hover {
+    background-color: #242533;
+    border-color: #3b3d52;
+}
+QWidget#avatarGridCell[selected="true"] {
+    background-color: #2a2b3d;
+    border: 1px solid #e0c48f;
+}
+
+/* ===== 浏览卡片（主界面单聊/群聊卡墙，浏览式无选中态）===== */
+QWidget#entityCard {
+    background-color: #1f2030;
+    border: 1px solid #2c2e42;
+    border-radius: 14px;
+}
+QWidget#entityCard:hover {
+    background-color: #262840;
+    border: 1px solid #7aa2f7;
+}
+QWidget#entityCard QLabel {
+    background: transparent;
+}
+
+/* ===== [P57] 信使卡片（NPC 上门：来信/悬赏/战书/求助）===== */
+QFrame#outreachCard {
+    background-color: #1f2030;
+    border: 1px solid #2c2e42;
+    border-radius: 10px;
+}
+QFrame#outreachCard QLabel {
+    background: transparent;
+}
+QLabel#cardNameLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: #c0caf5;
+    padding-bottom: 2px;
+}
+
+/* ===== 工具栏 ===== */
+QToolBar {
+    background-color: #1a1b26;
+    border-bottom: 1px solid #242533;
+    spacing: 4px;
+    padding: 4px;
+}
+QToolBar QToolButton {
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: #c0caf5;
+}
+QToolBar QToolButton:hover {
+    background-color: #242533;
+}
+
+/* ===== 菜单 ===== */
+QMenuBar {
+    background-color: #1a1b26;
+    border-bottom: 1px solid #242533;
+}
+QMenuBar::item:selected {
+    background-color: #242533;
+}
+QMenu {
+    background-color: #242533;
+    border: 1px solid #3b3d52;
+}
+QMenu::item:selected {
+    background-color: #7aa2f7;
+    color: #1a1b26;
+}
+
+/* ===== 状态栏 ===== */
+QStatusBar {
+    background-color: #1a1b26;
+    border-top: 1px solid #242533;
+    color: #565f89;
+}
+
+/* ===== 标签页 ===== */
+QTabWidget::pane {
+    border: 1px solid #3b3d52;
+    border-radius: 6px;
+}
+QTabBar::tab {
+    background-color: #242533;
+    color: #565f89;
+    padding: 6px 16px;
+    border: 1px solid #3b3d52;
+    border-bottom: none;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+QTabBar::tab:selected {
+    background-color: #1a1b26;
+    color: #7aa2f7;
+    border-color: #7aa2f7;
+}
+
+/* ===== 主界面顶部居中三标签（单聊/群聊/会话，分段药丸样式）===== */
+QTabBar#topTabBar {
+    background: transparent;
+}
+QTabBar#topTabBar::tab {
+    background-color: #1f2033;
+    color: #9aa5ce;
+    padding: 8px 28px;
+    margin: 0 3px;
+    border: 1px solid #2f3145;
+    border-radius: 8px;
+    min-width: 96px;
+}
+QTabBar#topTabBar::tab:hover {
+    background-color: #2a2b3d;
+    color: #c0caf5;
+}
+QTabBar#topTabBar::tab:selected {
+    background-color: #2d3561;
+    color: #c0caf5;
+    border: 1px solid #7aa2f7;
+}
+
+/* ===== 复选框 ===== */
+QCheckBox {
+    spacing: 8px;
+}
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3b3d52;
+    border-radius: 3px;
+    background-color: #242533;
+}
+QCheckBox::indicator:checked {
+    background-color: #7aa2f7;
+    border-color: #7aa2f7;
+}
+
+/* ===== 文本浏览器 ===== */
+QTextBrowser {
+    background-color: transparent;
+    border: none;
+    color: #c0caf5;
+}
+
+/* ===== 世界模拟 P5 UI 沉浸优化（objectName 限定，仅命中世界模拟页指定控件）=====
+   [P5] 守住 §21 完全独立铁律：本节样式通过 objectName 限定选择器，
+   仅影响世界模拟页显式 setObjectName 的控件，不会污染单聊/群聊/会话页。
+   - QProgressBar#hpBar: 玩家 HP 三色渐变
+   - QProgressBar#factionBar: 势力/财富进度条
+   - QPushButton#optionBtn: 场景页选项按钮
+   - QListWidget#worldNav: 详情页左侧导航
+   - QLabel#hudLabel: 详情页/场景页顶部 mini HUD 徽章
+   - QFrame#bannerPlaceholder: 详情页 banner 占位渐变
+   - QLabel#bannerPlayerLoc: 详情页 banner 右下角玩家位置小角标
+   - QLabel#atmosphereBadge: 场景页左栏氛围徽章（回合/危险度/战斗模式）
+*/
+
+/* ----- 玩家 HP 进度条（场景页 player_box）三色渐变 + 数值 ----- */
+QProgressBar#hpBar {
+    background-color: #2a2e44;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    color: #1a1b26;
+    font-weight: bold;
+    height: 16px;
+}
+QProgressBar#hpBar::chunk {
+    border-radius: 6px;
+    /* [<30% 红 / <60% 黄 / >=60% 绿] 由代码按 hp_pct 切换；任一档都是三色 qlineargradient */
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #f7768e, stop:0.5 #ff9eb0, stop:1 #f7768e);
+}
+QProgressBar#hpBar[hpLevel="high"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #9ece6a, stop:0.5 #c5e8a3, stop:1 #9ece6a);
+}
+QProgressBar#hpBar[hpLevel="mid"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #e0af68, stop:0.5 #f0d090, stop:1 #e0af68);
+}
+QProgressBar#hpBar[hpLevel="low"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #f7768e, stop:0.5 #ff9eb0, stop:1 #f7768e);
+}
+
+/* [修 2026-08-28] 玩家 MP 条（技能耗蓝左栏可视化，与 hpBar 同构蓝色渐变） */
+QProgressBar#mpBar {
+    background-color: #2a2e44;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    color: #1a1b26;
+    font-weight: bold;
+    height: 14px;
+}
+QProgressBar#xpBar {
+    background-color: #2a2e44;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    color: #1a1b26;
+    font-weight: bold;
+    height: 12px;
+}
+QProgressBar#xpBar::chunk {
+    border-radius: 6px;
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #9ece6a, stop:0.5 #b7e08a, stop:1 #9ece6a);
+}
+QProgressBar#mpBar::chunk {
+    border-radius: 6px;
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #7aa2f7, stop:0.5 #9ec2ff, stop:1 #7aa2f7);
+}
+/* [修 2026-09-06] 饱食度条：与 hp/mp/xp 同构的扁平样式。
+   [!] 此前 #hungerBar 无 QSS 规则、代码只内联 ::chunk，groove 走原生样式
+   （带边框立体槽），12px 高度下边框画出控件外，与上方 XP 条视觉重叠。 */
+QProgressBar#hungerBar {
+    background-color: #2a2e44;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    color: #1a1b26;
+    font-weight: bold;
+    height: 12px;
+}
+QProgressBar#hungerBar::chunk {
+    border-radius: 6px;
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #e0af68, stop:0.5 #f0d090, stop:1 #e0af68);
+}
+QProgressBar#hungerBar[hungerLevel="low"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #f7768e, stop:0.5 #ff9eb0, stop:1 #f7768e);
+}
+
+/* ----- 势力/财富进度条（详情页势力段）渐变 + 数值 ----- */
+QProgressBar#factionBar {
+    background-color: #2a2e44;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    color: #c0caf5;
+    font-size: 11px;
+    height: 10px;
+}
+QProgressBar#factionBar::chunk {
+    border-radius: 4px;
+}
+QProgressBar#factionBar[barLevel="high"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #9ece6a, stop:1 #c5e8a3);
+}
+QProgressBar#factionBar[barLevel="mid"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #e0af68, stop:1 #f0d090);
+}
+QProgressBar#factionBar[barLevel="low"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #f7768e, stop:1 #ff9eb0);
+}
+
+/* ----- 场景页选项按钮（替代手写 QSS）----- */
+QPushButton#optionBtn {
+    background-color: #2a2b3d;
+    color: #c0caf5;
+    border: 1px solid #3b3d52;
+    border-radius: 6px;
+    padding: 8px 14px;
+    text-align: left;
+}
+QPushButton#optionBtn:hover {
+    background-color: #2d3561;
+    border-color: #7aa2f7;
+    color: #c0caf5;
+}
+QPushButton#optionBtn:pressed {
+    background-color: #1f2335;
+}
+
+/* ----- 详情页左侧导航（200px 固定，区别主程序顶部三段药丸）----- */
+QListWidget#worldNav {
+    background-color: #1f2030;
+    border: 1px solid #2c2e42;
+    border-radius: 8px;
+    outline: none;
+    padding: 4px;
+}
+QListWidget#worldNav::item {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    margin: 2px 0;
+    color: #9aa5ce;
+}
+QListWidget#worldNav::item:hover {
+    background-color: #262840;
+    color: #c0caf5;
+}
+QListWidget#worldNav::item:selected {
+    background-color: #2d3561;
+    color: #c0caf5;
+    border-left: 3px solid #7aa2f7;
+}
+/* 导航项内的「段名 + 描述 + 数字徽章」三行布局 */
+QWidget#worldNavCell {
+    background: transparent;
+}
+QWidget#worldNavCell QLabel#navTitle {
+    color: #c0caf5;
+    font-weight: bold;
+    font-size: 13px;
+}
+QListWidget#worldNav::item:selected QWidget#worldNavCell QLabel#navTitle {
+    color: #7aa2f7;
+}
+QWidget#worldNavCell QLabel#navDesc {
+    color: #565f89;
+    font-size: 11px;
+}
+QLabel#navBadge {
+    background-color: #2a2b3d;
+    color: #7aa2f7;
+    border: 1px solid #3b3d52;
+    border-radius: 8px;
+    padding: 0 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+QListWidget#worldNav::item:selected QLabel#navBadge {
+    background-color: #7aa2f7;
+    color: #1a1b26;
+    border-color: #7aa2f7;
+}
+
+/* ----- 详情页顶栏 mini HUD 徽章（回合数 / 规模 / 危险度 / 战斗模式）----- */
+QLabel#hudLabel {
+    background-color: #1f2030;
+    color: #c0caf5;
+    border: 1px solid #2c2e42;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+}
+QLabel#hudLabel[hudLevel="info"] {
+    color: #7aa2f7;
+    border-color: #3b3d52;
+}
+QLabel#hudLabel[hudLevel="warn"] {
+    color: #e0af68;
+    border-color: #3b3d52;
+}
+QLabel#hudLabel[hudLevel="danger"] {
+    color: #f7768e;
+    border-color: #3b3d52;
+}
+
+/* ----- 场景页左栏氛围徽章行（回合 / 危险度 / 战斗模式）----- */
+QLabel#atmosphereBadge {
+    background-color: #1f2030;
+    color: #c0caf5;
+    border: 1px solid #2c2e42;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+}
+QLabel#atmosphereBadge[badgeLevel="info"] {
+    color: #7aa2f7;
+    border-color: #3b3d52;
+}
+QLabel#atmosphereBadge[badgeLevel="warn"] {
+    color: #e0af68;
+    border-color: #3b3d52;
+}
+QLabel#atmosphereBadge[badgeLevel="danger"] {
+    color: #f7768e;
+    border-color: #3b3d52;
+}
+QLabel#atmosphereBadge[badgeLevel="success"] {
+    color: #9ece6a;
+    border-color: #3b3d52;
+}
+
+/* ----- 详情页 banner 占位（无图时）渐变 ----- */
+QFrame#bannerPlaceholder {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #1a1b26, stop:0.5 #2a2e3d, stop:1 #2a2540);
+    border: 1px solid #2c2e42;
+    border-radius: 8px;
+}
+
+/* ----- 详情页 banner 右下角玩家位置小角标 ----- */
+QLabel#bannerPlayerLoc {
+    background-color: rgba(26, 27, 38, 180);
+    color: #7aa2f7;
+    border: 1px solid #3b3d52;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+/* ----- 场景页回合分隔气泡（系统 role）样式 ----- */
+QFrame#roundDivider {
+    background-color: transparent;
+    border: none;
+    border-top: 1px dashed #57482a;
+    border-bottom: 1px dashed #57482a;
+    border-radius: 0;
+    margin: 4px 0;
+}
+QFrame#roundDivider QLabel {
+    color: #c9a86a;
+    font-weight: bold;
+    font-size: 12px;
+    background: transparent;
+}
+QFrame#roundDivider QLabel#roundDividerDesc {
+    color: #8a7a54;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+/* ===== 世界模拟 P6 物品品级边框（objectName=rarityItem + 动态属性 rarity 限定）=====
+   仅命中显式 setObjectName("rarityItem") 的 RarityFrame（src/ui/widgets/rarity_frame.py），
+   不污染单聊/群聊/会话页。epic 及以上边框交 paintEvent 自绘流光，QSS 此处置 border:none。
+   守 §21 独立铁律 + 零 emoji。 */
+QFrame#rarityItem {
+    background-color: #1f2030;
+    border-radius: 6px;
+    border: 1px solid #3b3d52;
+}
+QFrame#rarityItem[rarity="common"] {
+    border: 1px solid #d7dae0;
+}
+QFrame#rarityItem[rarity="uncommon"] {
+    border: 1px solid #9ece6a;
+}
+QFrame#rarityItem[rarity="rare"] {
+    border: 2px solid #7aa2f7;
+}
+QFrame#rarityItem[rarity="epic"] {
+    /* 史诗级起：QSS border 置 none，交 paintEvent 自绘紫色流光边框 + 外层柔光。 */
+    border: none;
+}
+QFrame#rarityItem[rarity="legendary"] {
+    /* 传说级：QSS border 置 none，交 paintEvent 自绘橙色流光边框 + 外层柔光。
+       背景/圆角仍走上面的 #rarityItem 基础规则。 */
+    border: none;
+}
+QFrame#rarityItem[rarity="mythic"] {
+    /* 神话级：QSS border 置 none，交 paintEvent 自绘红色流光边框 + 外层柔光。 */
+    border: none;
+}
+
+/* ===== [UI 改造 2026-10-01] 游戏化设计系统（暗金古卷层，objectName 限定）=====
+   [样板批次] NPC 档案/议程先行，验收后按同一规范铺开其余对话框。
+   色板（叠在暗色底上，未改造页不受影响）：
+   - 主金 #c9a86a / 亮金 #e0c48f / 暗金边 #6b5a35（古卷描金）
+   - 正文 #c0caf5 / 次级 #9aa5ce / 弱化 #565f89（沿用既有文字层级）
+   - 状态色沿用全局：蓝 #7aa2f7 金 #e0af68 红 #f7768e 绿 #9ece6a 紫 #bb9af7
+   组件（均需显式 setObjectName 命中，不污染未改造页）：
+   - QFrame#gameCard[gold]/[prio] 档案卡片（渐变底 + 圆角 + 金顶线/优先级边）
+   - QLabel#gameCardTitle / #gameCardSub 卡片标题/副文
+   - QLabel#bannerName / QFrame#bannerRule 对话框头部大名/金色分隔线
+   - QProgressBar#statBar[tone] 数值条（hp/xp/交情/信任/饱食等，tone 五色）
+   - QLabel#gameBadge[level] 状态徽章（info/warn/danger/success/gold）
+   - QLabel#kvKey / #kvVal 键值行（左灰标签右正文）
+*/
+QFrame#gameCard {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+        stop:0 #232430, stop:1 #1d1e2a);
+    border: 1px solid #34313f;
+    border-radius: 10px;
+}
+QFrame#gameCard[gold="true"] {
+    border: 1px solid #6b5a35;
+    border-top: 2px solid #c9a86a;
+}
+QFrame#gameCard[prio="0"] { border: 1px solid #a03e50; border-left: 3px solid #f7768e; }
+QFrame#gameCard[prio="1"] { border: 1px solid #8a6a33; border-left: 3px solid #e0af68; }
+QFrame#gameCard[rarity="common"]    { border-left: 3px solid #d7dae0; }
+QFrame#gameCard[rarity="uncommon"]  { border-left: 3px solid #9ece6a; }
+QFrame#gameCard[rarity="rare"]      { border-left: 3px solid #7aa2f7; }
+QFrame#gameCard[rarity="epic"]      { border-left: 3px solid #bb9af7; }
+QFrame#gameCard[rarity="legendary"] { border-left: 3px solid #e0a860; }
+QFrame#gameCard[rarity="mythic"]    { border-left: 3px solid #e05555; }
+QFrame#gameCard[locked="true"] {
+    /* 未解锁占位卡：更暗的底 + 虚线边（收集锁定的视觉语言） */
+    background: #17181f;
+    border: 1px dashed #33313d;
+}
+/* ===== [P58 摸格子·暗金重绘 2026-10-02] 战利品格：hidden(？)/busy(翻找)/revealed(品级)/taken(已入包) ===== */
+QFrame#lootCell {
+    background: #23222b;
+    border: 1px solid #6b5a35;
+    border-radius: 10px;
+}
+QFrame#lootCell:hover {
+    border: 1px solid #e0c48f;
+    background: #2a2833;
+}
+QFrame#lootCell[state="busy"] { border: 1px solid #e0af68; }
+QFrame#lootCell[state="taken"] {
+    border: 1px solid #4a5a3c;
+    background: #20241d;
+}
+QLabel#lootCellMain { color: #e0c48f; font-size: 16px; font-weight: bold; }
+QLabel#lootCellSub { color: #8f9ab3; font-size: 11px; }
+QFrame#lootCell[state="hidden"] QLabel#lootCellMain { font-size: 24px; }
+QFrame#lootCell[state="revealed"] QLabel#lootCellMain { color: #f0e6d0; }
+QFrame#lootCell[state="taken"] QLabel#lootCellMain { color: #9ece6a; font-size: 14px; }
+QFrame#lootCell[state="revealed"][rarity="common"]    { border-left: 3px solid #d7dae0; }
+QFrame#lootCell[state="revealed"][rarity="uncommon"]  { border-left: 3px solid #9ece6a; }
+QFrame#lootCell[state="revealed"][rarity="rare"]      { border-left: 3px solid #7aa2f7; }
+QFrame#lootCell[state="revealed"][rarity="epic"]      { border-left: 3px solid #bb9af7; }
+QFrame#lootCell[state="revealed"][rarity="legendary"] { border-left: 3px solid #e0a860; }
+QFrame#lootCell[state="revealed"][rarity="mythic"]    { border-left: 3px solid #e05555; }
+/* ===== 剧情线阶段步进（#arcStep 属性 state 限定；名字保密段只显「？」）===== */
+QFrame#arcStep {
+    background: #1d1e2a;
+    border: 1px solid #34313f;
+    border-radius: 6px;
+}
+QFrame#arcStep QLabel {
+    color: #9aa5ce;
+    font-size: 11px;
+    background: transparent;
+}
+QFrame#arcStep[state="done"] {
+    background: #221f16;
+    border: 1px solid #57482a;
+}
+QFrame#arcStep[state="done"] QLabel { color: #bfa878; }
+QFrame#arcStep[state="cur"] {
+    background: #2a2418;
+    border: 1px solid #c9a86a;
+}
+QFrame#arcStep[state="cur"] QLabel {
+    color: #e6cf9c;
+    font-weight: bold;
+}
+QFrame#arcStep[state="future"] { border: 1px dashed #3a3a4a; }
+QFrame#arcStep[state="future"] QLabel { color: #565f89; }
+QFrame#gameCard QLabel, QFrame#gameCard QWidget {
+    background: transparent;
+}
+QLabel#gameCardTitle {
+    color: #e0c48f;
+    font-weight: bold;
+    font-size: 13px;
+}
+QLabel#gameCardSub {
+    color: #9aa5ce;
+    font-size: 12px;
+}
+QLabel#bannerName {
+    color: #e8d5ae;
+    font-size: 21px;
+    font-weight: bold;
+}
+QFrame#bannerRule {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #c9a86a, stop:0.6 #6b5a35, stop:1 transparent);
+    border: none;
+    max-height: 2px;
+}
+QProgressBar#statBar {
+    /* 槽比卡面更深一档（凹槽感）；1px 暗边收边 */
+    background-color: #191b26;
+    border: 1px solid #2a2d40;
+    border-radius: 5px;
+    text-align: center;
+    color: #e8e8f5;
+    font-size: 11px;
+    font-weight: bold;
+    min-height: 14px;
+    max-height: 14px;
+}
+QProgressBar#statBar::chunk { border-radius: 4px; }
+QProgressBar#statBar[tone="red"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #f7768e, stop:1 #c25a6e);
+}
+QProgressBar#statBar[tone="gold"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #e8c87f, stop:1 #c9a86a);
+}
+QProgressBar#statBar[tone="green"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #b7e08a, stop:1 #86b55c);
+}
+QProgressBar#statBar[tone="blue"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #9ec2ff, stop:1 #6f92d4);
+}
+QProgressBar#statBar[tone="purple"]::chunk {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #cbb2f9, stop:1 #9a7fe0);
+}
+QLabel#gameBadge {
+    background-color: #20222e;
+    border: 1px solid #34313f;
+    border-radius: 9px;
+    padding: 2px 9px;
+    font-size: 11px;
+    color: #c0caf5;
+    /* 与 #statBar（14px）同一视觉高度带，徽章/进度条同行排列不跳 */
+    min-height: 14px;
+}
+QLabel#gameBadge[level="gold"]   { color: #e0c48f; border-color: #6b5a35; }
+QLabel#gameBadge[level="info"]   { color: #7aa2f7; }
+QLabel#gameBadge[level="warn"]   { color: #e0af68; }
+QLabel#gameBadge[level="danger"] { color: #f7768e; }
+QLabel#gameBadge[level="success"] { color: #9ece6a; }
+/* [修裁字 2026-10-01] 内嵌行控件列表（setItemWidget）：竖向近零内边距。
+   [!] 全局 QListWidget::item 的 8px 上下 padding 会压缩 itemWidget 可用高度
+   （行高 sizeHint - 17px），紧凑行（股市行情行 48px）文字上下被裁。
+   用 setItemWidget 装行控件的列表须 setObjectName("rowWidgetList")。 */
+QListWidget#rowWidgetList::item {
+    padding: 0 4px;
+    border-bottom: none;
+}
+QLabel#kvKey {
+    color: #8b87a8;
+    font-size: 12px;
+}
+QLabel#kvVal {
+    color: #d4d9f0;
+    font-size: 12px;
+}

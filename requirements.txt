@@ -1,0 +1,21 @@
+PySide6>=6.6.0
+httpx>=0.27.0
+# [!] tiktoken 所有 PyPI 版本均「下载式」加载词表（运行时从微软 blob 下载到 TIKTOKEN_CACHE_DIR），
+# PyPI 轮子从不自带词表。打包版把 cl100k_base 词表缓存随包分发（spec 收进 _internal/tiktoken_cache，
+# main.py 启动时设 TIKTOKEN_CACHE_DIR 指向包内），离线用户也能正常 count_tokens。钉 0.7.0 防新
+# 版 API/编码名变更（如 0.13 的 model→encoding 映射改动致 encoding_for_model 抛 KeyError）。
+tiktoken==0.7.0
+chromadb>=0.5.0
+jieba>=0.42.1
+pyinstaller>=6.0.0
+# 远程服务（手机端联动），详见 src/remote/server.py
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+qrcode[pil]>=7.4.0
+# Pillow：酒馆 PNG 卡导入时把头像预处理成正方形（透明 padding 居中），
+# qrcode[pil] 已间接拉入，显式声明以防只装 qrcode 不带 [pil] extra 时缺失。
+Pillow>=10.0.0
+# numpy：世界模拟「纯色背景抠图」（src/services/image_cutout.py）用它做颜色距离与
+# 连通域标记。chromadb 也会拉入，但那是传递依赖——显式声明显式语义（同 Pillow 口径），
+# 防将来 chromadb 换实现致抠图静默失效。
+numpy>=1.24.0

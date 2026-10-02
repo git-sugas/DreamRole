@@ -1,0 +1,39 @@
+# ===== 绝不入库 =====
+# 运行时数据（data/apis/ 存明文 API key、存档、图片库）
+data/
+# 打包产物（重新打包自动生成）
+build/
+dist/
+# 旧调试探针数据
+_probe_data/
+_probe_out.txt
+# Python 缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+# IDE / 工具缓存
+.idea/
+.zcode/
+# 临时测试目录
+.test_tmp_*/
+
+# ===== 以下按 2026-10-02 拍板「运行不需要就不传」：想恢复入库删掉对应行即可 =====
+# 开发验收工具链（程序运行不依赖）
+tools/
+# 测试套件
+tests/
+# 多代理流程产物
+multi-agent/
+# 演示脚本 / 旧记录 / dev 依赖 / 打包脚本（python main.py 运行不需要）
+demo_combat_anim.py
+test.md
+requirements-dev.txt
+ai-roleplay.spec
+build.bat
+build.sh
+# 项目说明书
+read.md
+# docs 只保留《世界模拟》文档与其截图
+docs/*
+!docs/世界模拟.md
+!docs/worldsim-shots/
